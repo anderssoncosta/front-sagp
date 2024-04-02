@@ -8,7 +8,6 @@ const Home = () => {
 
   return (
     <div>
-      
       <div className="p-4">
         <Card className="w-full">
           <CardContent className="flex justify-between p-0">

@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Icon from "@/assets/icon";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Pagination,
   PaginationContent,
@@ -16,35 +18,56 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { PatientApi, getPatients } from "@/services/patients";
+import { toast } from "@/components/ui/use-toast";
+import {
+  FormApi,
+  deleteFormType,
+  getFormType,
+} from "@/services/form-type";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import HeaderForm from "./header-form";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 8;
 
-const ScheduleTable = () => {
-  const [patients, setPatient] = useState<PatientApi[]>([]);
+const FormTypeTable = () => {
+  const [typeForm, setTypeForm] = useState<FormApi[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchPatients = async () => {
-    const response = await getPatients();
-    setPatient(response);
-  };
-
   useEffect(() => {
-    fetchPatients();
-  }, [currentPage]);
+    const fetchTypeForm = async () => {
+      const response = await getFormType();
+      setTypeForm(response);
+    };
+
+    fetchTypeForm();
+  }, [currentPage, typeForm]);
+
+  const handleDeleteFormType = (item: number) => {
+    try {
+      deleteFormType(item);
+      toast({
+        title: "Excluído com sucesso!",
+      });
+    } catch (error) {
+      console.error(error);
+
+      toast({
+        title: "Erro ao excluir!",
+      });
+    }
+  };
 
   // função para retornar os pacientes correspondentes à página atual
   const getCurrentPagePatients = () => {
     const startIndex = (currentPage - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
-    return patients.slice(startIndex, endIndex);
+    return typeForm.slice(startIndex, endIndex);
   };
 
   // função para calcular o número total de páginas
   const getTotalPages = () => {
-    return Math.ceil(patients.length / PAGE_SIZE);
+    return Math.ceil(typeForm.length / PAGE_SIZE);
   };
 
   // função para navegar para a próxima página
@@ -59,56 +82,67 @@ const ScheduleTable = () => {
 
   return (
     <div>
-      {patients.length === 0 ? (
-        <Card className="flex justify-center items-center flex-col p-5">
+      {typeForm.length === 0 ? (
+        <Card className="flex justify-center items-center flex-col p-5 mt-4">
           <CardTitle className="text-center">
-            Ops, ainda não temos pacientes agendados !
+            Ops, ainda não temos formulários cadastrados !
           </CardTitle>
           <CardContent className="flex items-center p-3">
-            <p>Deseja agendar paciente ? </p>
+            <p>Deseja cadastrar um formulário ? </p>
             <Button variant="link">
-              <Link to="/agenda/agendar-paciente">Clique aqui</Link>
+              <Link to="/pacientes/cadastrar-paciente">Clique aqui</Link>
             </Button>
           </CardContent>
         </Card>
       ) : (
         <>
           <Table>
-            <TableHeader>
+            <TableHeader className="">
               <TableRow className="">
-                <TableHead className="flex justify-center items-center">
+                <TableHead className="flex items-center justify-center">
                   Ações
                 </TableHead>
-                <TableHead>ID</TableHead>
-                <TableHead>Nome</TableHead>
-                <TableHead>Data Agendamento</TableHead>
+                <TableHead className="">ID</TableHead>
+                <TableHead className="">Nome</TableHead>
+                <TableHead className="flex items-center justify-center">
+                  Data de Cadastro
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {getCurrentPagePatients().map((item) => (
                 <TableRow key={item.id}>
                   <TableCell className="flex justify-center items-center gap-1">
+                    <Dialog>
+                      <DialogTrigger>
+                        <Button
+                          variant="default"
+                          title="Editar"
+                          onClick={() => handleUpdateFormType(item.id)}
+                        >
+                          <Icon name="PenLine" color="#FFF" size={16} />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="p-2">
+                        <HeaderForm />
+                      </DialogContent>
+                    </Dialog>
+                    {/* <Button variant="default" title="Editar">
+                      <Icon name="PenLine" color="#FFF" size={16} />
+                    </Button> */}
                     <Button
                       variant="default"
-                      title="Abrir Cadastro"
-                      className=""
+                      title="Excluir"
+                      onClick={() => handleDeleteFormType(item.id)}
                     >
-                      <Link to={`/paciente/${item.id}`}>
-                        <Icon name="BookOpen" color="#FFF" size={16} />
-                      </Link>
-                    </Button>
-                    <Button variant="default" title="Editar">
-                      <Icon name="PenLine" color="#FFF" size={16} />
-                    </Button>
-                    <Button variant="default" title="Excluir">
                       <Icon name="Trash" color="#FFF" size={16} />
                     </Button>
                   </TableCell>
                   <TableCell className="font-medium">{item.id}</TableCell>
                   <TableCell>{item.name}</TableCell>
-                  <TableCell>{`${new Date(item.updatedAt).toLocaleDateString(
-                    "pt-BR"
-                  )}`}</TableCell>
+                  <TableCell className="flex items-center justify-center">{`${new Date(
+                    item.updatedAt
+                  ).toLocaleDateString("pt-BR")}`}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -151,4 +185,4 @@ const ScheduleTable = () => {
     </div>
   );
 };
-export default ScheduleTable;
+export default FormTypeTable;

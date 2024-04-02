@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const MenuMobile = () => {
   return (
     <Card>
-      <CardContent className="flex items-center justify-between p-5 bg-primary">
+      <CardContent className="flex items-center justify-between p-2 bg-primary">
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline">
@@ -22,8 +22,8 @@ const MenuMobile = () => {
         <Link to="/">
           <img
             src="/src/assets/logo_sagp-white.png"
-            height={120}
-            width={120}
+            height={100}
+            width={100}
             alt="Logo"
           />
         </Link>

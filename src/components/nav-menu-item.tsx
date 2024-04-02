@@ -9,7 +9,6 @@ import {
 import Icon from "@/assets/icon";
 
 import logo from "../assets/logo_sagp.png";
-import { ModeToggle } from "./mode-toggle";
 
 interface navProps {
   name: string;
@@ -31,15 +30,11 @@ const nav: navProps[] = [
     subnav: [
       {
         submenu: "Lista dos Pacientes",
-        href: "/pacientes/",
+        href: "/pacientes/lista-paciente",
       },
       {
         submenu: "Cadastrar Paciente",
         href: "/pacientes/cadastrar-paciente",
-      },
-      {
-        submenu: "Cadastrar Ficha de Atendimento",
-        href: "/tipo-de-ficha",
       },
     ],
   },
@@ -78,17 +73,32 @@ const nav: navProps[] = [
     ],
   },
   {
+    name: "Cadastro Base",
+    href: "/cadastro-base",
+    icon: "Box",
+    subnav: [
+      {
+        submenu: "Cadastrar Formulário de atendimento",
+        href: "/cadastro-base/tipo-de-ficha",
+      },
+      {
+        submenu: "Cadastrar Profissional",
+        href: "/cadastro-base/profissional",
+      },
+    ],
+  },
+  {
     name: "Opções",
     href: "/opcoes",
     icon: "Settings2",
     subnav: [
       {
         submenu: "Perfil",
-        href: "/",
+        href: "/opcoes",
       },
       {
         submenu: "usuários",
-        href: "/",
+        href: "/opcoes",
       },
     ],
   },
@@ -97,12 +107,9 @@ const nav: navProps[] = [
 const NavMenuItem = () => {
   return (
     <div className="p-4 mt-4">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-center items-center">
         <div>
           <img src={logo} width={100} alt="Logo" />
-        </div>
-        <div>
-          <ModeToggle />
         </div>
       </div>
 

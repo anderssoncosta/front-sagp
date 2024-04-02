@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { PatientApi, getPatients } from "@/services/patientes";
+import { PatientApi, getPatients } from "@/services/patients";
 import { Separator } from "@/components/ui/separator";
 import PatientAccordion from "./patient-accordion";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ const PatientInfo = () => {
     setCurrentPatient(foundPatient || null);
   };
 
-  const [time, setTime] = useState<TimeEntry[]>([]);
+  const [time, setTime] = useState<EntryTime[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -34,7 +34,6 @@ const PatientInfo = () => {
     const updatedTime = [...time, { data: formattedDate, hora: formattedTime }];
 
     setTime(updatedTime);
-    
   };
 
   return (

@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { PatientApi, getPatients } from "@/services/patientes";
+import { PatientApi, getPatients } from "@/services/patients";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -34,7 +34,7 @@ const PatientAccordion = () => {
     <div>
       <Accordion type="single" collapsible className="w-full mt-5 ">
         <AccordionItem value="item-1" className="mb-2 border-b-0">
-          <AccordionTrigger className="text-primary-foreground p-4 bg-primary rounded-lg ">
+          <AccordionTrigger className="text-primary-foreground p-4 bg-primary rounded-lg [&[data-state=open]>svg]:rotate-0">
             <Icon name="UserRound" />
             Ficha Clínica
           </AccordionTrigger>

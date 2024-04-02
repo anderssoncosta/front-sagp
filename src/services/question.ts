@@ -30,7 +30,7 @@ const getQuestions = async (): Promise<QuestionApi[]> => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const postPatiente = async (obj: any) => {
+const postQuestions = async (obj: any) => {
   try {
     const response = await api.post<QuestionApi[]>(`/tipo-ficha`, obj, {
       headers: {
@@ -45,11 +45,11 @@ const postPatiente = async (obj: any) => {
 
 // const deletePatient = async (id: number) => {
 //   try {
-//     await api.delete(`/tipoFicha/${id}`);
+//     await api.delete(`/tipo-ficha/${id}`);
 //     return true;
 //   } catch (error) {
 //     console.log("Erro ao deletar Paciente: " + error);
 //   }
 // };
 
-export { getQuestions, postPatiente };
+export { getQuestions, postQuestions };

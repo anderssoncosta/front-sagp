@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Icon from "@/assets/icon";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import {
@@ -16,7 +17,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { PatientApi, getPatients } from "@/services/patientes";
+import { toast } from "@/components/ui/use-toast";
+import { PatientApi, deletePatient, getPatients } from "@/services/patients";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -33,26 +35,40 @@ const PatientTable = () => {
 
   useEffect(() => {
     fetchPatients();
-  }, [currentPage]);
+  }, [currentPage, patients]);
 
-  // Função para retornar os pacientes correspondentes à página atual
+  const handleDeletePatient = async (item: number) => {
+    try {
+      deletePatient(item);
+      toast({
+        title: "Paciente excluído com sucesso !",
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Erro ao excluir paciente",
+      });
+    }
+  };
+
+  // função para retornar os pacientes correspondentes à página atual
   const getCurrentPagePatients = () => {
     const startIndex = (currentPage - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
     return patients.slice(startIndex, endIndex);
   };
 
-  // Função para calcular o número total de páginas
+  // função para calcular o número total de páginas
   const getTotalPages = () => {
     return Math.ceil(patients.length / PAGE_SIZE);
   };
 
-  // Função para navegar para a próxima página
+  // função para navegar para a próxima página
   const nextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, getTotalPages()));
   };
 
-  // Função para navegar para a página anterior
+  // função para navegar para a página anterior
   const prevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
@@ -100,7 +116,11 @@ const PatientTable = () => {
                     <Button variant="default" title="Editar">
                       <Icon name="PenLine" color="#FFF" size={16} />
                     </Button>
-                    <Button variant="default" title="Excluir">
+                    <Button
+                      variant="default"
+                      title="Excluir"
+                      onClick={() => handleDeletePatient(item.id)}
+                    >
                       <Icon name="Trash" color="#FFF" size={16} />
                     </Button>
                   </TableCell>
