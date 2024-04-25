@@ -42,52 +42,50 @@ const PatientAccordion = () => {
             {pacienteAtual && (
               <div className="flex flex-col w-full h-full bg-primary-foreground gap-2 p-4 rounded-lg">
                 <h1 className="">
-                  Nome:{" "}
+                  Nome:
                   <span className="font-semibold">{pacienteAtual.name}</span>
                 </h1>
                 <h1>
-                  Idade:{" "}
+                  Idade:
                   <span className="font-semibold">{pacienteAtual.age}</span>
                 </h1>
                 <h1>
-                  Data Nasc.:{" "}
+                  Data Nasc.:
                   <span className="font-semibold">
-                    {new Date(pacienteAtual.birth).toLocaleDateString(
-                      "pt-BR"
-                    )}
+                    {new Date(pacienteAtual.birth).toLocaleDateString("pt-BR")}
                   </span>
                 </h1>
                 <h1>
-                  Tel.:{" "}
+                  Tel.:
                   <span className="font-semibold">{pacienteAtual.phone}</span>
                 </h1>
                 <h1>
-                  Sexo:{" "}
+                  Sexo:
                   <span className="font-semibold">{pacienteAtual.gender}</span>
                 </h1>
                 <h1>
-                  Naturalidade:{" "}
+                  Naturalidade:
                   <span className="font-semibold">
                     {pacienteAtual.naturalness}
                   </span>
                 </h1>
                 <h1>
-                  Endereço:{" "}
+                  Endereço:
                   <span className="font-semibold">{pacienteAtual.address}</span>
                 </h1>
                 <div className="w-8/12 flex justify-between">
                   <h1>
-                    Cidade:{" "}
+                    Cidade:
                     <span className="font-semibold">{pacienteAtual.city}</span>
                   </h1>
                   <h1>
-                    Bairro:{" "}
+                    Bairro:
                     <span className="font-semibold">
                       {pacienteAtual.district}
                     </span>
                   </h1>
                   <h1>
-                    Cep:{" "}
+                    Cep:
                     <span className="font-semibold">
                       {pacienteAtual.zipcode}
                     </span>

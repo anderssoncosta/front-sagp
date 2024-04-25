@@ -29,7 +29,7 @@ const postSchedule = async (obj: any): Promise<ScheduleApi[]> => {
         "Content-Type": "application/json",
       },
     });
-    console.log("Resposta do servidor ", response)
+    console.log("Resposta do servidor ", response);
     return response.data;
   } catch (error) {
     console.log(error);

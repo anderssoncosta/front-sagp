@@ -7,7 +7,7 @@ const Schedule = () => {
       <div>
         <HeaderTitle title="Pacientes Agendados" />
       </div>
-      <ScheduleTable/>
+      <ScheduleTable />
     </div>
   );
 };

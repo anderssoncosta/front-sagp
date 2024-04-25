@@ -35,24 +35,20 @@ const ScheduleTable = () => {
     fetchPatients();
   }, [currentPage]);
 
-  // função para retornar os pacientes correspondentes à página atual
   const getCurrentPagePatients = () => {
     const startIndex = (currentPage - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
     return patients.slice(startIndex, endIndex);
   };
 
-  // função para calcular o número total de páginas
   const getTotalPages = () => {
     return Math.ceil(patients.length / PAGE_SIZE);
   };
 
-  // função para navegar para a próxima página
   const nextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, getTotalPages()));
   };
 
-  // função para navegar para a página anterior
   const prevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };

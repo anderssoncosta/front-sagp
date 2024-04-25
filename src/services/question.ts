@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "./api";
 
 export interface QuestionProps {
@@ -21,7 +22,6 @@ export interface QuestionApi {
 const getQuestions = async (): Promise<QuestionApi[]> => {
   try {
     const response = await api.get<QuestionApi[]>("/tipo-ficha");
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.log("Erro ao buscar ficha: " + error);
@@ -29,7 +29,6 @@ const getQuestions = async (): Promise<QuestionApi[]> => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const postQuestions = async (obj: any) => {
   try {
     const response = await api.post<QuestionApi[]>(`/tipo-ficha`, obj, {

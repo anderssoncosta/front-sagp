@@ -16,11 +16,7 @@ export interface PatientApi {
   zipcode: string;
   address: string;
   id_scheduling: number;
-  // scheduling_date: string;
-  // scheduling_time: Date;
-  // plug_type?: { ficha: string }[];
   updatedAt: string;
-  // question_plug_type?: { answers: string }[];
 }
 
 export interface ApiResponse {
